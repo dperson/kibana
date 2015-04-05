@@ -15,8 +15,9 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     tar -xf kibana-${version}-linux-x64.tar.gz -C /tmp && \
     mv /tmp/kibana-* /opt/kibana && \
     chown -Rh kibana. /opt/kibana && \
-    apt-get clean && \
-    rm -rf kibana-${version}-linux-x64.tar.gz /var/lib/apt/lists/* /tmp/*
+    apt-get purge ca-certificates curl && \
+    apt-get autoremove && apt-get clean && \
+    rm -rf /tmp/* /var/lib/apt/lists/* kibana-${version}-linux-x64.tar.gz
 COPY kibana.sh /usr/bin/
 
 EXPOSE 5601
