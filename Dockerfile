@@ -22,4 +22,6 @@ COPY kibana.sh /usr/bin/
 
 EXPOSE 5601
 
+VOLUME ["/opt/kibana/config"]
+
 ENTRYPOINT ["kibana.sh"]
