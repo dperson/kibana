@@ -61,7 +61,7 @@ shift $(( OPTIND - 1 ))
 
 chown -Rh kibana. /opt/kibana
 
-if ps -ef | grep -v kibana.sh | grep -q kibana; then
+if ps -ef | egrep -v 'grep|kibana.sh' | grep -q kibana; then
     echo "Service already running, please restart container to apply changes"
 elif [[ $# -ge 1 && -x $(which $1 2>&-) ]]; then
     exec "$@"
