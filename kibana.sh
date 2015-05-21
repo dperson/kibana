@@ -61,13 +61,13 @@ shift $(( OPTIND - 1 ))
 
 chown -Rh kibana. /opt/kibana
 
-if ps -ef | egrep -v 'grep|kibana.sh' | grep -q kibana; then
-    echo "Service already running, please restart container to apply changes"
-elif [[ $# -ge 1 && -x $(which $1 2>&-) ]]; then
+if [[ $# -ge 1 && -x $(which $1 2>&-) ]]; then
     exec "$@"
 elif [[ $# -ge 1 ]]; then
     echo "ERROR: command not found: $1"
     exit 13
+elif ps -ef | egrep -v 'grep|kibana.sh' | grep -q kibana; then
+    echo "Service already running, please restart container to apply changes"
 else
     ELASTICSEARCH=${ELASTICSEARCH:-http://172.17.42.1:9200}
     KIBANA_INDEX=${KIBANA_INDEX:-.kibana}
