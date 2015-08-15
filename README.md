@@ -1,4 +1,4 @@
-[![logo](https://www.elastic.co/static/img/logo-elastic.png)](https://www.elastic.co/products/kibana)
+[![logo](https://raw.githubusercontent.com/dperson/kibana/master/logo.png)](https://www.elastic.co/products/kibana)
 
 # Kibana
 
