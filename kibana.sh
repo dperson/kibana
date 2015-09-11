@@ -64,8 +64,10 @@ done
 shift $(( OPTIND - 1 ))
 
 [[ "${TZ:-""}" ]] && timezone "$TZ"
+[[ "${USERID:-""}" =~ ^[0-9]+$ ]] && usermod -u $USERID kibana
+[[ "${GROUPID:-""}" =~ ^[0-9]+$ ]] && usermod -g $GROUPID kibana
 
-chown -Rh kibana. /opt/kibana
+chown -Rh kibana. /opt/kibana 2>&1 | grep -iv 'Read-only' || :
 
 if [[ $# -ge 1 && -x $(which $1 2>&-) ]]; then
     exec "$@"

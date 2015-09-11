@@ -22,6 +22,7 @@ COPY kibana.sh /usr/bin/
 
 EXPOSE 5601
 
-VOLUME ["/opt/kibana"]
+VOLUME ["/run", "/tmp", "/var/cache", "/var/lib", "/var/log", "/var/tmp", \
+            "/opt/kibana"]
 
 ENTRYPOINT ["kibana.sh"]
