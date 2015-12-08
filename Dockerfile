@@ -10,7 +10,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     apt-get update -qq && \
     apt-get install -qqy --no-install-recommends ca-certificates curl \
                 $(apt-get -s dist-upgrade|awk '/^Inst.*ecurity/ {print $2}') &&\
-    curl -LOC- -s $URL/kibana-${version}-linux-x64.tar.gz && \
+    curl -LOC- $URL/kibana-${version}-linux-x64.tar.gz && \
     sha1sum kibana-${version}-linux-x64.tar.gz | grep -q "$sha1sum" && \
     tar -xf kibana-${version}-linux-x64.tar.gz -C /tmp && \
     mv /tmp/kibana-* /opt/kibana && \
