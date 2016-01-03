@@ -64,8 +64,8 @@ done
 shift $(( OPTIND - 1 ))
 
 [[ "${TZ:-""}" ]] && timezone "$TZ"
-[[ "${USERID:-""}" =~ ^[0-9]+$ ]] && usermod -u $USERID kibana
-[[ "${GROUPID:-""}" =~ ^[0-9]+$ ]] && groupmod -g $GROUPID kibana
+[[ "${USERID:-""}" =~ ^[0-9]+$ ]] && usermod -u $USERID -o kibana
+[[ "${GROUPID:-""}" =~ ^[0-9]+$ ]] && groupmod -g $GROUPID -o kibana
 
 chown -Rh kibana. /opt/kibana 2>&1 | grep -iv 'Read-only' || :
 
