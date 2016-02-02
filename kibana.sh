@@ -75,22 +75,20 @@ elif [[ $# -ge 1 ]]; then
 elif ps -ef | egrep -v 'grep|kibana.sh' | grep -q kibana; then
     echo "Service already running, please restart container to apply changes"
 else
-    ELASTICSEARCH=${ELASTICSEARCH:-http://172.17.42.1:9200}
+    ELASTICSEARCH=${ELASTICSEARCH:-http://elasticsearch:9200}
     KIBANA_INDEX=${KIBANA_INDEX:-.kibana}
     DEFAULT_APP_ID=${DEFAULT_APP_ID:-discover}
     REQUEST_TIMEOUT=${REQUEST_TIMEOUT:-300000}
     SHARD_TIMEOUT=${SHARD_TIMEOUT:-0}
     VERIFY_SSL=${VERIFY_SSL:-true}
 
-    REPLACE=(
-        "s|^elasticsearch_url:.*|elasticsearch_url: \"$ELASTICSEARCH\"|;"
-        "s|^kibana_index:.*|kibana_index: \"$KIBANA_INDEX\"|;"
-        "s|^default_app_id:.*|default_app_id: \"$DEFAULT_APP_ID\"|;"
-        "s|^request_timeout:.*|request_timeout: $REQUEST_TIMEOUT|;"
-        "s|^shard_timeout:.*|shard_timeout: $SHARD_TIMEOUT|;"
-        "s|^verify_ssl:.*|verify_ssl: $VERIFY_SSL|;"
-    )
+    sed -i "s|^\\(elasticsearch_url:\\).*|\\1 \"$ELASTICSEARCH\"|; \
+                s|^\\(kibana_index:\\).*|\\1 \"$KIBANA_INDEX\"|; \
+                s|^\\(default_app_id:\\).*|\\1 \"$DEFAULT_APP_ID\"|; \
+                s|^\\(request_timeout:\\).*|\\1 $REQUEST_TIMEOUT|; \
+                s|^\\(shard_timeout:\\).*|\\1 $SHARD_TIMEOUT|; \
+                s|^\\(verify_ssl:\\).*|\\1 $VERIFY_SSL|;" \
+                /opt/kibana/config/kibana.yml
 
-    sed -i -e "${REPLACE[*]}" /opt/kibana/config/kibana.yml
     exec su -l kibana -s /bin/bash -c "exec /opt/kibana/bin/kibana"
 fi
