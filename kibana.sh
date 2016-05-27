@@ -78,16 +78,16 @@ else
     ELASTICSEARCH=${ELASTICSEARCH:-http://elasticsearch:9200}
     KIBANA_INDEX=${KIBANA_INDEX:-.kibana}
     DEFAULT_APP_ID=${DEFAULT_APP_ID:-discover}
-    REQUEST_TIMEOUT=${REQUEST_TIMEOUT:-300000}
-    SHARD_TIMEOUT=${SHARD_TIMEOUT:-0}
+    TIMEOUT=${TIMEOUT:-300000}
+    SHARD_TIME=${SHARD_TIME:-0}
     VERIFY_SSL=${VERIFY_SSL:-true}
 
-    sed -ri "s|^(\\#\\s*)?(elasticsearch_url:).*|\\2 '$ELASTICSEARCH'|; \
-                s|^(\\#\\s*)?(kibana_index:).*|\\2 '$KIBANA_INDEX'|; \
-                s|^(\\#\\s*)?(default_app_id:).*|\\2 '$DEFAULT_APP_ID'|; \
-                s|^(\\#\\s*)?(request_timeout:).*|\\2 $REQUEST_TIMEOUT|; \
-                s|^(\\#\\s*)?(shard_timeout:).*|\\2 $SHARD_TIMEOUT|; \
-                s|^(\\#\\s*)?(verify_ssl:).*|\\2 $VERIFY_SSL|;" \
+    sed -ri "s|^(\\#\\s*)?(elasticsearch.url:).*|\\2 '$ELASTICSEARCH'|; \
+                s|^(\\#\\s*)?(kibana.index:).*|\\2 '$KIBANA_INDEX'|; \
+                s|^(\\#\\s*)?(kibana.defaultAppId:).*|\\2 '$DEFAULT_APP_ID'|; \
+                s|^(\\#\\s*)?(elasticsearch.requestTimeout:).*|\\2 $TIMEOUT|; \
+                s|^(\\#\\s*)?(elasticsearch.shardTimeout:).*|\\2 $SHARD_TIME|; \
+                s|^(\\#\\s*)?(elasticsearch.ssl.verify:).*|\\2 $VERIFY_SSL|;" \
                 /opt/kibana/config/kibana.yml
 
     exec su -l kibana -s /bin/bash -c "exec /opt/kibana/bin/kibana"

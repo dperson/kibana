@@ -38,6 +38,12 @@ ENVIRONMENT VARIABLES (only available with `docker run`)
  * `TZ` - As above, configure the zoneinfo timezone, IE `EST5EDT`
  * `USERID` - Set the UID for the app user
  * `GROUPID` - Set the GID for the app user
+ * `ELASTICSEARCH` - URL for elasticsearch backend
+ * `KIBANA_INDEX` - Index name
+ * `DEFAULT_APP_ID` - Default App ID
+ * `TIMEOUT` - Timeout for elasticsearch connection
+ * `SHARD_TIME` - Shard timeout
+ * `VERIFY_SSL` - Verify SSL
 
 ## Examples
 
