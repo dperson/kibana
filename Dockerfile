@@ -3,7 +3,7 @@ MAINTAINER David Personette <dperson@gmail.com>
 
 # Install kibana
 RUN export DEBIAN_FRONTEND='noninteractive' && \
-    export URL='https://download.elasticsearch.org/kibana/kibana' && \
+    export url='https://download.elasticsearch.org/kibana/kibana' && \
     export version='4.5.1' && \
     export sha1sum='355c631b77c529d3dea304d7f084e658f5cc3123' && \
     groupadd -r kibana && \
@@ -12,7 +12,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     apt-get install -qqy --no-install-recommends ca-certificates curl \
                 $(apt-get -s dist-upgrade|awk '/^Inst.*ecurity/ {print $2}') &&\
     echo "downloading kibana-${version}-linux-x64.tar.gz ..." && \
-    curl -LOC- -s $URL/kibana-${version}-linux-x64.tar.gz && \
+    curl -LOC- -s ${url}/kibana-${version}-linux-x64.tar.gz && \
     sha1sum kibana-${version}-linux-x64.tar.gz | grep -q "$sha1sum" && \
     tar -xf kibana-${version}-linux-x64.tar.gz -C /tmp && \
     mv /tmp/kibana-* /opt/kibana && \
