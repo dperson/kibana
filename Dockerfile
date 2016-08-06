@@ -4,8 +4,8 @@ MAINTAINER David Personette <dperson@gmail.com>
 # Install kibana
 RUN export DEBIAN_FRONTEND='noninteractive' && \
     export url='https://download.elasticsearch.org/kibana/kibana' && \
-    export version='4.5.3' && \
-    export sha1sum='09ee044b8d8518859254793db741e6241dc3f2bb' && \
+    export version='4.5.4' && \
+    export sha1sum='dba409384fe36f1b5ad20e7dd7e6efacdc09ed11' && \
     groupadd -r kibana && \
     useradd -c 'Kibana' -d /opt/kibana -g kibana -r kibana && \
     apt-get update -qq && \
