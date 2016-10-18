@@ -2,6 +2,7 @@ FROM debian:stretch
 MAINTAINER David Personette <dperson@gmail.com>
 
 # Install kibana
+#sha1sum kibana-${version}-linux-x64.tar.gz | grep -q "$sha1sum" && \
 RUN export DEBIAN_FRONTEND='noninteractive' && \
     export url='https://download.elasticsearch.org/kibana/kibana' && \
     export version='4.6.1' && \
@@ -13,7 +14,6 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
                 $(apt-get -s dist-upgrade|awk '/^Inst.*ecurity/ {print $2}') &&\
     echo "downloading kibana-${version}-linux-x64.tar.gz ..." && \
     curl -LOC- -s ${url}/kibana-${version}-linux-x64.tar.gz && \
-    sha1sum kibana-${version}-linux-x64.tar.gz | grep -q "$sha1sum" && \
     tar -xf kibana-${version}-linux-x64.tar.gz -C /tmp && \
     mv /tmp/kibana-* /opt/kibana && \
     chown -Rh kibana. /opt/kibana && \
