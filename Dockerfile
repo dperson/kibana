@@ -9,7 +9,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     groupadd -r kibana && \
     useradd -c 'Kibana' -d /opt/kibana -g kibana -r kibana && \
     apt-get update -qq && \
-    apt-get install -qqy --no-install-recommends ca-certificates curl psutils \
+    apt-get install -qqy --no-install-recommends ca-certificates curl procps \
                 $(apt-get -s dist-upgrade|awk '/^Inst.*ecurity/ {print $2}') &&\
     echo "downloading kibana-${version}-linux-x64.tar.gz ..." && \
     curl -LOC- -s ${url}/kibana-${version}-linux-x86_64.tar.gz && \
