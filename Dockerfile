@@ -11,15 +11,17 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     apt-get update -qq && \
     apt-get install -qqy --no-install-recommends ca-certificates curl procps \
                 $(apt-get -s dist-upgrade|awk '/^Inst.*ecurity/ {print $2}') &&\
-    echo "downloading kibana-${version}-linux-x86_64.tar.gz ..." && \
-    curl -LOSs ${url}/kibana-${version}-linux-x86_64.tar.gz && \
-    sha1sum kibana-${version}-linux-x86_64.tar.gz | grep -q "$sha1sum" && \
-    tar -xf kibana-${version}-linux-x86_64.tar.gz -C /tmp && \
+    file="kibana-${version}-linux-x86_64.tar.gz" && \
+    echo "downloading $file ..." && \
+    curl -LOSs ${url}/$file && \
+    sha1sum $file | grep -q "$sha1sum" || \
+    { echo "expected $sha1sum, got $(sha1sum $file)"; exit; } && \
+    tar -xf $file -C /tmp && \
     mv /tmp/kibana-* /opt/kibana && \
     chown -Rh kibana. /opt/kibana && \
     apt-get purge -qqy ca-certificates curl && \
     apt-get autoremove -qqy && apt-get clean -qqy && \
-    rm -rf /tmp/* /var/lib/apt/lists/* kibana-${version}-linux-x86_64.tar.gz
+    rm -rf /tmp/* /var/lib/apt/lists/* $file
 COPY kibana.sh /usr/bin/
 
 EXPOSE 5601
