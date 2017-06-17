@@ -81,13 +81,15 @@ else
     TIMEOUT=${TIMEOUT:-300000}
     SHARD_TIME=${SHARD_TIME:-0}
     VERIFY_SSL=${VERIFY_SSL:-true}
+    SERVER_HOST=${SERVER_HOST:-0.0.0.0}
 
     sed -ri "s|^(\\#\\s*)?(elasticsearch.url:).*|\\2 '$ELASTICSEARCH'|; \
                 s|^(\\#\\s*)?(kibana.index:).*|\\2 '$KIBANA_INDEX'|; \
                 s|^(\\#\\s*)?(kibana.defaultAppId:).*|\\2 '$DEFAULT_APP_ID'|; \
                 s|^(\\#\\s*)?(elasticsearch.requestTimeout:).*|\\2 $TIMEOUT|; \
                 s|^(\\#\\s*)?(elasticsearch.shardTimeout:).*|\\2 $SHARD_TIME|; \
-                s|^(\\#\\s*)?(elasticsearch.ssl.verify:).*|\\2 $VERIFY_SSL|;" \
+                s|^(\\#\\s*)?(elasticsearch.ssl.verify:).*|\\2 $VERIFY_SSL|; \
+                s|^(\\#\\s*)?(server.host:).*|\\2 $SERVER_HOST|;" \
                 /opt/kibana/config/kibana.yml
 
     exec su -l kibana -s /bin/bash -c "exec /opt/kibana/bin/kibana"
