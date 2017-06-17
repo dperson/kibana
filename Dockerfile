@@ -18,6 +18,10 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     { echo "expected $sha1sum, got $(sha1sum $file)"; exit 13; } && \
     tar -xf $file -C /tmp && \
     mv /tmp/kibana-* /opt/kibana && \
+    sed -ri 's|^[# ]*(server\.host:).*|\1 "0.0.0.0"|' \
+                /opt/kibana/config/kibana.yml && \
+    sed -ri 's|^[# ]*(elasticsearch\.url:).*|\1 "http://elasticsearch:9200"|' \
+                /opt/kibana/config/kibana.yml && \
     chown -Rh kibana. /opt/kibana && \
     apt-get purge -qqy ca-certificates curl && \
     apt-get autoremove -qqy && apt-get clean -qqy && \
