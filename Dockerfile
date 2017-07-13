@@ -4,12 +4,13 @@ MAINTAINER David Personette <dperson@gmail.com>
 # Install kibana
 RUN export DEBIAN_FRONTEND='noninteractive' && \
     export url='https://artifacts.elastic.co/downloads/kibana' && \
-    export version='5.4.2' && \
-    export sha1sum='f42f9a1686104b800ffbcdbdad8c403839d1904b' && \
+    export version='5.5.0' && \
+    export sha1sum='935e925713cb84eb1879a59ac68708fccf3361d4' && \
     groupadd -r kibana && \
     useradd -c 'Kibana' -d /opt/kibana -g kibana -r kibana && \
     apt-get update -qq && \
-    apt-get install -qqy --no-install-recommends ca-certificates curl procps \
+    apt-get install -qqy --no-install-recommends ca-certificates curl \
+                procps libfontconfig libfreetype6 \
                 $(apt-get -s dist-upgrade|awk '/^Inst.*ecurity/ {print $2}') &&\
     file="kibana-${version}-linux-x86_64.tar.gz" && \
     echo "downloading $file ..." && \
