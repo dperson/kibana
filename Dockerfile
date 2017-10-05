@@ -4,8 +4,8 @@ MAINTAINER David Personette <dperson@gmail.com>
 # Install kibana
 RUN export DEBIAN_FRONTEND='noninteractive' && \
     export url='https://artifacts.elastic.co/downloads/kibana' && \
-    export version='5.6.1' && \
-    export sha1sum='b16b9cc1e99018006bb7f096e42e579a68169197' && \
+    export version='5.6.2' && \
+    export shasum='e9ef4f8dee16b1274d4b0399c0df938a5c99d450f8b8f8b1e56b341' && \
     groupadd -r kibana && \
     useradd -c 'Kibana' -d /opt/kibana -g kibana -r kibana && \
     apt-get update -qq && \
@@ -15,8 +15,8 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     file="kibana-${version}-linux-x86_64.tar.gz" && \
     echo "downloading $file ..." && \
     curl -LOSs ${url}/$file && \
-    sha1sum $file | grep -q "$sha1sum" || \
-    { echo "expected $sha1sum, got $(sha1sum $file)"; exit 13; } && \
+    sha512sum $file | grep -q "$shasum" || \
+    { echo "expected $shasum, got $(sha512sum $file)"; exit 13; } && \
     tar -xf $file -C /tmp && \
     mv /tmp/kibana-* /opt/kibana && \
     chown -Rh kibana. /opt/kibana && \
