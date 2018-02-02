@@ -48,7 +48,7 @@ ENVIRONMENT VARIABLES (only available with `docker run`)
 ## Examples
 
 Any of the commands can be run at creation with `docker run` or later with
-`docker exec -it kibana.sh` (as of version 1.3 of docker).
+`docker exec -it kibana kibana.sh` (as of version 1.3 of docker).
 
 ### Setting the Timezone
 
@@ -60,9 +60,9 @@ OR using `environment variables`
 
 Will get you the same settings as
 
-    sudo docker run -it --name es -p 5601:5601 -d dperson/kibana
-    sudo docker exec -it es kibana.sh -t EST5EDT ls -AlF /etc/localtime
-    sudo docker restart es
+    sudo docker run -it --name kibana -p 5601:5601 -d dperson/kibana
+    sudo docker exec -it kibana kibana.sh -t EST5EDT ls -AlF /etc/localtime
+    sudo docker restart kibana
 
 ## Complex configuration
 
