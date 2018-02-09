@@ -39,7 +39,7 @@ timezone() { local timezone="${1:-EST5EDT}"
 # Arguments:
 #   none)
 # Return: Help text
-usage() { local RC=${1:-0}
+usage() { local RC="${1:-0}"
     echo "Usage: ${0##*/} [-opt] [command]
 Options (fields in '[]' are optional, '<>' are required):
     -h          This help
@@ -75,13 +75,13 @@ elif [[ $# -ge 1 ]]; then
 elif ps -ef | egrep -v 'grep|kibana.sh' | grep -q kibana; then
     echo "Service already running, please restart container to apply changes"
 else
-    ELASTICSEARCH=${ELASTICSEARCH:-http://elasticsearch:9200}
-    KIBANA_INDEX=${KIBANA_INDEX:-.kibana}
-    DEFAULT_APP_ID=${DEFAULT_APP_ID:-discover}
-    TIMEOUT=${TIMEOUT:-300000}
-    SHARD_TIME=${SHARD_TIME:-0}
-    VERIFY_SSL=${VERIFY_SSL:-true}
-    SERVER_HOST=${SERVER_HOST:-0.0.0.0}
+    ELASTICSEARCH="${ELASTICSEARCH:-http://elasticsearch:9200}"
+    KIBANA_INDEX="${KIBANA_INDEX:-.kibana}"
+    DEFAULT_APP_ID="${DEFAULT_APP_ID:-discover}"
+    TIMEOUT="${TIMEOUT:-300000}"
+    SHARD_TIME="${SHARD_TIME:-0}"
+    VERIFY_SSL="${VERIFY_SSL:-true}"
+    SERVER_HOST="${SERVER_HOST:-0.0.0.0}"
 
     sed -ri "s|^(\\#\\s*)?(elasticsearch.url:).*|\\2 '$ELASTICSEARCH'|; \
                 s|^(\\#\\s*)?(kibana.index:).*|\\2 '$KIBANA_INDEX'|; \
