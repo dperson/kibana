@@ -28,12 +28,14 @@ When started Kibana container will listen on port 5601
     Usage: kibana.sh [-opt] [command]
     Options (fields in '[]' are optional, '<>' are required):
         -h          This help
+        -t ""       Configure timezone
+                    possible arg: "[timezone]" - zoneinfo timezone for container
 
     The 'command' (if provided and valid) will be run instead of kibana
 
 ENVIRONMENT VARIABLES
 
- * `TZ` - Configure the zoneinfo timezone, IE `EST5EDT`
+ * `TZ` - As above, configure the zoneinfo timezone, IE `EST5EDT`
  * `USERID` - Set the UID for the app user
  * `GROUPID` - Set the GID for the app user
  * `ELASTICSEARCH` - URL for elasticsearch backend
@@ -50,7 +52,17 @@ Any of the commands can be run at creation with `docker run` or later with
 
 ### Setting the Timezone
 
+    sudo docker run -it -p 5601:5601 -d dperson/kibana -t EST5EDT
+
+OR using `environment variables`
+
     sudo docker run -it -p 5601:5601 -e TZ=EST5EDT -d dperson/kibana
+
+Will get you the same settings as
+
+    sudo docker run -it --name kibana -p 5601:5601 -d dperson/kibana
+    sudo docker exec -it kibana kibana.sh -t EST5EDT ls -AlF /etc/localtime
+    sudo docker restart kibana
 
 ## Complex configuration
 
