@@ -4,8 +4,8 @@ MAINTAINER David Personette <dperson@gmail.com>
 # Install kibana
 RUN export DEBIAN_FRONTEND='noninteractive' && \
     export url='https://artifacts.elastic.co/downloads/kibana' && \
-    export version='7.8.0' && \
-    export shasum='3c9ffbbfe56b66226ff62740cbe8eae83e43b07a1e3aec2ca845398' && \
+    export version='7.8.1' && \
+    export shasum='92f3717b2f9ea915570ee8587f1ad0c2a428c266e1cd7dcda485b8b' && \
     groupadd -r kibana && \
     useradd -c 'Kibana' -d /opt/kibana -g kibana -r kibana && \
     apt-get update -qq && \
